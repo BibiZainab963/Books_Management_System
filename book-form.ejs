@@ -1,0 +1,27 @@
+<div class="form-grid">
+  <label class="field field-wide">Book title <span class="required">*</span>
+    <input name="title" value="<%= formBook.title || '' %>" placeholder="e.g. The Midnight Library" maxlength="45" required>
+  </label>
+  <label class="field">Author name <span class="required">*</span>
+    <input name="author" value="<%= formBook.author || '' %>" placeholder="e.g. Matt Haig" maxlength="45" required>
+  </label>
+  <label class="field">Book category <span class="required">*</span>
+    <select name="category" required>
+      <option value="">Choose a category…</option>
+      <% const categories = ['Fiction','Education','Biography','Mystery','Romance','Science','History','Technology','Self-help','Children','Fantasy','Other']; %>
+      <% categories.forEach(c => { %><option value="<%= c %>" <%= formBook.category === c ? 'selected' : '' %>><%= c %></option><% }); %>
+      <% if (formBook.category && !categories.includes(formBook.category)) { %><option selected value="<%= formBook.category %>"><%= formBook.category %></option><% } %>
+    </select>
+  </label>
+  <label class="field">Price <span class="required">*</span>
+    <div class="input-prefix"><span>₹</span><input name="price" type="number" min="0" step="0.01" value="<%= formBook.price ?? '' %>" placeholder="499.00" required></div>
+  </label>
+  <label class="field">Stock quantity <span class="required">*</span>
+    <select name="stock" required>
+      <option value="">Choose quantity…</option>
+      <% [0,1,2,3,5,10,15,20,25,30,50,75,100,150,200].forEach(n => { %><option value="<%= n %>" <%= String(formBook.stock) === String(n) ? 'selected' : '' %>><%= n %> <%= n === 1 ? 'copy' : 'copies' %></option><% }); %>
+      <% if (formBook.stock !== undefined && formBook.stock !== null && ![0,1,2,3,5,10,15,20,25,30,50,75,100,150,200].includes(Number(formBook.stock))) { %><option selected value="<%= formBook.stock %>"><%= formBook.stock %> copies (current)</option><% } %>
+    </select>
+  </label>
+</div>
+<p class="form-note"><span>✦</span> Fields marked * are required. Your data is saved to your existing MySQL <code>books</code> table.</p>

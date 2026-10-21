@@ -1,0 +1,39 @@
+<%- include("partials/header", { title: "Overview" }) %>
+<section class="hero">
+  <div class="hero-copy">
+    <span class="eyebrow"><span class="eyebrow-dot"></span> YOUR PERSONAL BOOK UNIVERSE</span>
+    <h1>Every book has<br>its <em>own story.</em></h1>
+    <p>A calmer, smarter way to organise your collection. Keep your shelves in order and your next great read within reach.</p>
+    <div class="hero-actions"><a class="btn btn-light" href="/list">Explore library <span>↗</span></a><a class="text-link light-link" href="/insert">＋ Add a new book</a></div>
+    <div class="hero-proof"><span class="proof-stars">★★★★★</span><span>Made for people who love books</span></div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-photo"></div>
+    <div class="photo-caption"><span class="caption-line"></span><span>THE JOY OF A GOOD BOOK<small>Collect · Curate · Discover</small></span></div>
+    <div class="floating-note"><span class="note-icon">✧</span><span><strong>Your library, your way</strong><small>Beautifully organised</small></span></div>
+  </div>
+  <div class="hero-ornament">Z</div>
+</section>
+<section class="stats-grid">
+  <div class="stat-card"><span class="stat-icon">▤</span><span class="stat-label">BOOK TITLES</span><strong><%= stats.totalBooks %></strong><small>In your collection</small></div>
+  <div class="stat-card"><span class="stat-icon">▥</span><span class="stat-label">TOTAL COPIES</span><strong><%= stats.totalStock %></strong><small>Ready to discover</small></div>
+  <div class="stat-card"><span class="stat-icon">₹</span><span class="stat-label">SHELF VALUE</span><strong>₹<%= stats.totalValue.toLocaleString("en-IN", {maximumFractionDigits: 2}) %></strong><small>Across all stocked books</small></div>
+  <div class="stat-card"><span class="stat-icon">✧</span><span class="stat-label">CATEGORIES</span><strong><%= stats.categories %></strong><small>Different worlds to explore</small></div>
+</section>
+<section class="section-heading"><div><span class="eyebrow">YOUR COLLECTION</span><h2>Recently added <em>books</em></h2></div><a class="text-link" href="/list">View all books <span>↗</span></a></section>
+<% if (!books.length) { %>
+  <section class="empty-state"><div class="empty-icon">▤</div><h3>Your shelves are waiting</h3><p>Add your first book to start building your library.</p><a class="btn btn-primary" href="/insert">＋ Add your first book</a></section>
+<% } else { %>
+  <div class="book-grid">
+    <% books.forEach((b, i) => { %>
+      <article class="book-card">
+        <a class="book-cover cover-<%= i % 4 %>" href="/listOne?id=<%= b.book_id %>" aria-label="View <%= b.title %>">
+          <span class="cover-deco">✧</span><span class="cover-title"><%= b.title %></span><span class="cover-author"><%= b.author %></span><span class="cover-bottom">ZAINAB BOOKS</span>
+        </a>
+        <div class="book-card-info"><span class="category-pill"><%= b.category %></span><h3><a href="/listOne?id=<%= b.book_id %>"><%= b.title %></a></h3><p>by <%= b.author %></p><div class="book-meta"><strong>₹<%= Number(b.price).toLocaleString("en-IN", {maximumFractionDigits:2}) %></strong><span><%= b.stock %> in stock</span></div></div>
+      </article>
+    <% }) %>
+  </div>
+<% } %>
+<section class="management-strip"><div><span class="eyebrow">QUICK ACTIONS</span><h2>Everything in <em>one place.</em></h2><p>Choose an action below. Existing books load into dropdowns, so you don't have to retype their details.</p></div><div class="quick-actions"><a href="/insert"><span>＋</span><strong>Add book</strong><small>Create a new record</small></a><a href="/update"><span>↻</span><strong>Update book</strong><small>Choose from your library</small></a><a href="/delete"><span>⌫</span><strong>Delete book</strong><small>Select then confirm</small></a><a href="/listOne"><span>⌕</span><strong>Find one</strong><small>View full book details</small></a></div></section>
+<%- include("partials/footer") %>

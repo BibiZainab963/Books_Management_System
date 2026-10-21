@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= title ? title + " | " : "" %>Zainab Books Management System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <script defer src="/js/app.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/" aria-label="Zainab Books home">
+    <span class="brand-mark">Z</span>
+    <span class="brand-copy"><strong>Zainab Books</strong><small>MANAGEMENT SYSTEM</small></span>
+  </a>
+  <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+  <nav class="nav-links">
+    <a class="<%= currentPath === '/' ? 'active' : '' %>" href="/">Overview</a>
+    <a class="<%= currentPath === '/list' ? 'active' : '' %>" href="/list">Library</a>
+    <a class="<%= currentPath === '/insert' ? 'active' : '' %>" href="/insert">Add Book</a>
+    <div class="nav-menu">
+      <button type="button" class="nav-dropdown">Manage <span>⌄</span></button>
+      <div class="nav-dropdown-panel">
+        <a href="/update">Update a book</a>
+        <a href="/delete">Delete a book</a>
+        <a href="/listOne">Find one book</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<main class="page-shell">
+  <% if (notice) { %><div class="alert success"><span>✓</span><%= notice %><button type="button" class="alert-close" aria-label="Dismiss">×</button></div><% } %>
+  <% if (error) { %><div class="alert danger"><span>!</span><%= error %><button type="button" class="alert-close" aria-label="Dismiss">×</button></div><% } %>
